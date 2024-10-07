@@ -18,7 +18,7 @@ const BotaoLimparDados = () => {
 
   const handleConfirmarLimparDados = async () => {
     try {
-      const response = await fetch('http://localhost:3000/limpar-dados', {
+      const response = await fetch(process.env.BACKEND_URL + '/limpar-dados', {
         method: 'DELETE'
       });
       if (!response.ok) {

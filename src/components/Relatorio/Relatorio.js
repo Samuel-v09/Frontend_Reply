@@ -39,7 +39,7 @@ const Relatorio = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:3000/gerar_relatorio', {
+            const response = await axios.post(process.env.BACKEND_URL +'/gerar_relatorio', {
                 MotorID: MotorID,
                 parametro,
             });

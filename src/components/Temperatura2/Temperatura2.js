@@ -28,7 +28,7 @@ const Temperatura2 = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:3000/coletando_dados_motores', {
+      const response = await fetch(process.env.BACKEND_URL +'/coletando_dados_motores', {
         headers: {
           'Authorization': `Bearer ${token}`
         }

@@ -19,7 +19,7 @@ const Tabela1 = () => {
 
                 const token = localStorage.getItem('token');
 
-                const response = await axios.get('http://localhost:3000/coletando_dados_motores', {
+                const response = await axios.get(process.env.BACKEND_URL + '/coletando_dados_motores', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

@@ -13,7 +13,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/cadastro', { username, password });
+      const response = await axios.post(process.env.BACKEND_URL +'/cadastro', { username, password });
       setMessage('Usuário registrado com sucesso. Agora você pode fazer login!');
     } catch (err) {
       console.error('Erro ao registrar usuário:', err);

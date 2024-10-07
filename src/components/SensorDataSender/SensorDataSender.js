@@ -14,7 +14,7 @@ const SensorDataSender = ({ onDataSent }) => {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/inserir-dados-sensor', {
+            const response = await fetch(process.env.BACKEND_URL +'/inserir-dados-sensor', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
