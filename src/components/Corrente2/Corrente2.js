@@ -26,7 +26,7 @@ const Corrente2 = () => {
         return;
       }
 
-      const response = await fetch(process.env.BACKEND_URL +'/coletando_dados_motores', {
+      const response = await fetch('https://backend-clu7.onrender.com/coletando_dados_motores', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
