@@ -17,7 +17,7 @@ const Login = () => {
       const { token } = response.data;
 
       // Armazenar o token no localStorage ou sessionStorage
-      localStorage.setItem('authToken', token);
+      localStorage.setItem('token', token);
 
       // Redirecionar para a página principal da aplicação (Home)
       navigate('/');  // Redireciona para a página inicial

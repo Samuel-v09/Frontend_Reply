@@ -32,7 +32,7 @@ function App() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('token');
     if (token) {
       setIsAuthenticated(true);
     }
