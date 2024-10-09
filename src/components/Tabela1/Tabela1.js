@@ -1,85 +1,89 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import './Tabela1.css'; // Importando o CSS
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import "./Tabela1.css"; // Importando o CSS
 
-import IconButton from '@mui/material/IconButton';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import SettingsIcon from '@mui/icons-material/Settings';
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 const Tabela1 = () => {
-    const [dadosMotores, setDadosMotores] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [dadosMotores, setDadosMotores] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const fetchDadosMotores = async () => {
+      try {
+        const token = localStorage.getItem("token");
 
-    useEffect(() => {
-        const fetchDadosMotores = async () => {
-            try {
+        const response = await fetch(
+          "https://backend-clu7.onrender.com/coletando_dados_motores",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setDadosMotores(response.data);
+      } catch (err) {
+        setError("Erro ao buscar dados dos motores.");
+        console.error(err.response ? err.response.data : err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-                const token = localStorage.getItem('token');
+    fetchDadosMotores();
+  }, []);
 
-                const response = await fetch('https://backend-clu7.onrender.com/coletando_dados_motores', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                setDadosMotores(response.data);
-            } catch (err) {
-                setError('Erro ao buscar dados dos motores.');
-                console.error(err.response ? err.response.data : err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+  if (loading) {
+    return <p>Carregando dados...</p>;
+  }
 
-        fetchDadosMotores();
-    }, []);
+  if (error) {
+    return <p>{error}</p>;
+  }
 
-    if (loading) {
-        return <p>Carregando dados...</p>;
-    }
+  // Filtrar os dados para exibir apenas os que pertencem ao MotorID = 'Motor01'
+  const dadosFiltrados = dadosMotores.filter(
+    (motor) => motor.motorid === "Motor01"
+  );
 
-    if (error) {
-        return <p>{error}</p>;
-    }
+  return (
+    <div>
+      <header className="head-menu">
+        <Link to="/SelectTabela">
+          <IconButton aria-label="home" size="large" color="primary">
+            <ArrowBackIcon fontSize="50" />
+          </IconButton>
+        </Link>
 
-    // Filtrar os dados para exibir apenas os que pertencem ao MotorID = 'Motor01'
-    const dadosFiltrados = dadosMotores.filter(motor => motor.motorid === 'Motor01');
+        <Link to="/">
+          <IconButton aria-label="config" size="large" color="primary">
+            <SettingsIcon fontSize="50" />
+          </IconButton>
+        </Link>
+      </header>
 
-    return (
-        <div>
-            <header className='head-menu'>
-                <Link to="/SelectTabela">
-                    <IconButton aria-label="home" size="large" color="primary"
-                    ><ArrowBackIcon fontSize="50" />
-                    </IconButton>
-                </Link>
-
-                <Link to="/">
-                    <IconButton aria-label="config" size="large" color="primary"
-                    ><SettingsIcon fontSize="50" />
-                    </IconButton>
-                </Link>
-
-            </header>
-
-            <div className="sensor-table-container">
-                <h1>Dados dos Motores</h1>
-                <table className="sensor-table tabela1"> {/* Adicionei as classes aqui */}
-                    <thead>
-                        <tr>
-                            <th>ColetaID</th>
-                            <th>DataHora</th>
-                            <th>MotorID</th>
-                            <th>Temperatura</th>
-                            <th>Frequência</th>
-                            <th>Corrente</th>
-                            <th>Vibração</th>
-                            <th>Pressão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+      <div className="sensor-table-container">
+        <h1>Dados dos Motores</h1>
+        <table className="sensor-table tabela1">
+          {" "}
+          {/* Adicionei as classes aqui */}
+          <thead>
+            <tr>
+              <th>ColetaID</th>
+              <th>DataHora</th>
+              <th>MotorID</th>
+              <th>Temperatura</th>
+              <th>Frequência</th>
+              <th>Corrente</th>
+              <th>Vibração</th>
+              <th>Pressão</th>
+            </tr>
+          </thead>
+          {/* <tbody>
                         {dadosFiltrados.length > 0 ? (
                             dadosFiltrados.map((motor) => (
                                 <tr key={`${motor.coletaid}-${motor.motorid}`}>
@@ -98,11 +102,12 @@ const Tabela1 = () => {
                                 <td colSpan="8" style={{ textAlign: 'center' }}>Nenhum dado encontrado para MotorID = 'Motor01'</td>
                             </tr>
                         )}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    );
+                        
+                    </tbody> */}
+        </table>
+      </div>
+    </div>
+  );
 };
 
 export default Tabela1;
