@@ -49,6 +49,7 @@ const Tabela1 = () => {
   const dadosFiltrados = dadosMotores.filter(
     (motor) => motor.motorid === "Motor01"
   );
+  console.log("dados => ", dadosFiltrados);
 
   return (
     <div>
@@ -83,27 +84,32 @@ const Tabela1 = () => {
               <th>Pressão</th>
             </tr>
           </thead>
-          {/* <tbody>
-                        {dadosFiltrados.length > 0 ? (
-                            dadosFiltrados.map((motor) => (
-                                <tr key={`${motor.coletaid}-${motor.motorid}`}>
-                                    <td>{motor.coletaid}</td>
-                                    <td>{motor.datahora ? new Date(motor.datahora).toLocaleString() : 'Data Inválida'}</td>
-                                    <td>{motor.motorid}</td>
-                                    <td>{motor.temperatura}</td>
-                                    <td>{motor.frequencia}</td>
-                                    <td>{motor.corrente}</td>
-                                    <td>{motor.vibracao}</td>
-                                    <td>{motor.pressao}</td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="8" style={{ textAlign: 'center' }}>Nenhum dado encontrado para MotorID = 'Motor01'</td>
-                            </tr>
-                        )}
-                        
-                    </tbody> */}
+          <tbody>
+            {dadosFiltrados.length > 0 ? (
+              dadosFiltrados.map((motor) => (
+                <tr key={`${motor.coletaid}-${motor.motorid}`}>
+                  <td>{motor.coletaid}</td>
+                  <td>
+                    {motor.datahora
+                      ? new Date(motor.datahora).toLocaleString()
+                      : "Data Inválida"}
+                  </td>
+                  <td>{motor.motorid}</td>
+                  <td>{motor.temperatura}</td>
+                  <td>{motor.frequencia}</td>
+                  <td>{motor.corrente}</td>
+                  <td>{motor.vibracao}</td>
+                  <td>{motor.pressao}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="8" style={{ textAlign: "center" }}>
+                  Nenhum dado encontrado para MotorID = 'Motor01'
+                </td>
+              </tr>
+            )}
+          </tbody>
         </table>
       </div>
     </div>
