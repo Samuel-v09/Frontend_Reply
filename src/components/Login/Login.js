@@ -12,8 +12,10 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    
+
     try {
-      const response = await axios.post(process.env.BACKEND_URL +'/login', { username, password });
+      const response = await axios.post('https://backend-clu7.onrender.com/login', { username, password });
       const { token } = response.data;
 
       // Armazenar o token no localStorage ou sessionStorage
