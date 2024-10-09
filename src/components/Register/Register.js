@@ -1,28 +1,33 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
-import './Register.css'; // Importando o CSS
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "./Register.css"; // Importando o CSS
 
 const Register = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate(); 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(process.env.BACKEND_URL +'/cadastro', { username, password });
-      setMessage('Usuário registrado com sucesso. Agora você pode fazer login!');
+      const response = await axios.post(
+        "https://backend-clu7.onrender.com/cadastro",
+        { username, password }
+      );
+      setMessage(
+        "Usuário registrado com sucesso. Agora você pode fazer login!"
+      );
     } catch (err) {
-      console.error('Erro ao registrar usuário:', err);
-      setMessage('Erro ao registrar usuário.');
+      console.error("Erro ao registrar usuário:", err);
+      setMessage("Erro ao registrar usuário.");
     }
   };
 
   const handleGoToLogin = () => {
-    navigate('/login'); 
+    navigate("/login");
   };
 
   return (
@@ -50,9 +55,10 @@ const Register = () => {
         <button type="submit">Registrar</button>
       </form>
       {message && (
-        <div className={message.includes('sucesso') ? 'message' : 'error'}>
+        <div className={message.includes("sucesso") ? "message" : "error"}>
           <p>{message}</p>
-          {message === 'Usuário registrado com sucesso. Agora você pode fazer login!' && (
+          {message ===
+            "Usuário registrado com sucesso. Agora você pode fazer login!" && (
             <button className="loginButton" onClick={handleGoToLogin}>
               Ir para Login
             </button>
